@@ -20,6 +20,7 @@ echo $TASKNAME
 echo $DOCKER_FILE
 
 set -euxo pipefail  # fail on error
+sudo apt install git -y
 git --version
   
 # Generate an tag with a reproducible checksum of all files in . by doing a checksum of all files
