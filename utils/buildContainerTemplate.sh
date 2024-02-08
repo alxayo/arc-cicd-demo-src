@@ -23,7 +23,7 @@ set -euxo pipefail  # fail on error
 # Generate an tag with a reproducible checksum of all files in . by doing a checksum of all files
 # in alphabetical order, then another checksum of their names and checksums.
 # Running this command on windows-based infrastructure may return a different result due to CRLF
-  
+imageTag="1.0.1" 
 # If the image with the generated tag doesn't already exist, build it.
 if ! az acr repository show -n $AZ_ACR_NAME --image "$REPOSITORY:$imageTag" -o table; then
     echo No match found. Container will be built.
