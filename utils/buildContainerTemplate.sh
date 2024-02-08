@@ -19,15 +19,12 @@ echo $REPOSITORY
 echo $TASKNAME
 echo $DOCKER_FILE
 
-set -euxo pipefail  # fail on error
-sudo apt install git -y
-git --version
-  
+set -euxo pipefail  # fail on error  
 # Generate an tag with a reproducible checksum of all files in . by doing a checksum of all files
 # in alphabetical order, then another checksum of their names and checksums.
 # Running this command on windows-based infrastructure may return a different result due to CRLF
 pushd $GITHUB_WORKSPACE/$SRC_FOLDER/$SOURCE_LOCATION
-imageTag=$(git log -n 1 --format="%H" -- ".")
+imageTag=$(/usr/bin/git log -n 1 --format="%H" -- ".")
 popd
   
 # If the image with the generated tag doesn't already exist, build it.
