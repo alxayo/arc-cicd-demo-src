@@ -24,8 +24,10 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: Set dcoker image Tag env var
+    - name: Set docker image Tag env var
       run: echo "imageTag=$(git log -n 1 --format='%H' -- '.')" >> $GITHUB_ENV
+    - name: test image Tag env var 
+      run: echo $imageTag
     - name: Create Frontend Image Tags
       env:
         SOURCE_LOCATION: src/azure-vote-front 
