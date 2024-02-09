@@ -1,5 +1,5 @@
 #!/bin/bash
-while getopts "f:g:s:u:r:t:d:" option;
+while getopts "f:g:s:u:r:t:d:i:" option;
     do
     case "$option" in
         f ) SRC_FOLDER=${OPTARG};;
@@ -9,7 +9,7 @@ while getopts "f:g:s:u:r:t:d:" option;
         r ) REPOSITORY=${OPTARG};;
         t ) TASKNAME=${OPTARG};;
         d ) DOCKER_FILE=${OPTARG};;
-        t ) IMAGE_TAG=${OPTARG};;
+        i ) IMAGE_TAG=${OPTARG};;
     esac
 done
 echo $SRC_FOLDER
