@@ -20,6 +20,7 @@ echo $REPOSITORY
 echo $TASKNAME
 echo $DOCKER_FILE
 echo $IMAGE_TAG
+echo "$REPOSITORY:$IMAGE_TAG"
 
 set -euxo pipefail  # fail on error  
 # Generate an tag with a reproducible checksum of all files in . by doing a checksum of all files
@@ -32,7 +33,7 @@ if ! az acr repository show -n $AZ_ACR_NAME --image "$REPOSITORY:$IMAGE_TAG" -o 
     echo Tag for new container: $IMAGE_TAG
     az acr build \
         -r $AZ_ACR_NAME \
-        -t "$REPOSITORY:$imageTag" \
+        -t "$REPOSITORY:$IMAGE_TAG" \
         -t "$REPOSITORY:latest" \
         -f "$GITHUB_WORKSPACE/$SRC_FOLDER/$SOURCE_LOCATION/$DOCKER_FILE" \
         $GITHUB_WORKSPACE/$SRC_FOLDER/$SOURCE_LOCATION
