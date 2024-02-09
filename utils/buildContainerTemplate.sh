@@ -9,6 +9,7 @@ while getopts "f:g:s:u:r:t:d:" option;
         r ) REPOSITORY=${OPTARG};;
         t ) TASKNAME=${OPTARG};;
         d ) DOCKER_FILE=${OPTARG};;
+        t ) IMAGE_TAG=${OPTARG};;
     esac
 done
 echo $SRC_FOLDER
@@ -18,12 +19,13 @@ echo $AZ_ACR_NAME
 echo $REPOSITORY
 echo $TASKNAME
 echo $DOCKER_FILE
+echo $IMAGE_TAG
 
 set -euxo pipefail  # fail on error  
 # Generate an tag with a reproducible checksum of all files in . by doing a checksum of all files
 # in alphabetical order, then another checksum of their names and checksums.
 # Running this command on windows-based infrastructure may return a different result due to CRLF
-imageTag="1.0.1" 
+imageTag=$IMAGE_TAG
 # If the image with the generated tag doesn't already exist, build it.
 if ! az acr repository show -n $AZ_ACR_NAME --image "$REPOSITORY:$imageTag" -o table; then
     echo No match found. Container will be built.
