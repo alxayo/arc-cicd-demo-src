@@ -25,11 +25,11 @@ set -euxo pipefail  # fail on error
 # Generate an tag with a reproducible checksum of all files in . by doing a checksum of all files
 # in alphabetical order, then another checksum of their names and checksums.
 # Running this command on windows-based infrastructure may return a different result due to CRLF
-imageTag=$IMAGE_TAG
+
 # If the image with the generated tag doesn't already exist, build it.
-if ! az acr repository show -n $AZ_ACR_NAME --image "$REPOSITORY:$imageTag" -o table; then
+if ! az acr repository show -n $AZ_ACR_NAME --image "$REPOSITORY:$IMAGE_TAG" -o table; then
     echo No match found. Container will be built.
-    echo Tag for new container: $imageTag
+    echo Tag for new container: $IMAGE_TAG
     az acr build \
         -r $AZ_ACR_NAME \
         -t "$REPOSITORY:$imageTag" \
@@ -37,12 +37,12 @@ if ! az acr repository show -n $AZ_ACR_NAME --image "$REPOSITORY:$imageTag" -o t
         -f "$GITHUB_WORKSPACE/$SRC_FOLDER/$SOURCE_LOCATION/$DOCKER_FILE" \
         $GITHUB_WORKSPACE/$SRC_FOLDER/$SOURCE_LOCATION
 else
-    echo "The existing image with tag "$imageTag" is found."
+    echo "The existing image with tag "$IMAGE_TAG" is found."
 fi
 set +x
 echo "setting IMAGE_TAG output for task $TASKNAME"
-echo "##vso[task.setvariable variable=IMAGE_TAG;isOutput=true]$imageTag"
+echo "##vso[task.setvariable variable=IMAGE_TAG;isOutput=true]$IMAGE_TAG"
 
 # write a file containing the image tag
 mkdir -p $GITHUB_WORKSPACE/image_tags      
-echo "$imageTag" > $GITHUB_WORKSPACE/image_tags/$TASKNAME
+echo "$IMAGE_TAG" > $GITHUB_WORKSPACE/image_tags/$TASKNAME
