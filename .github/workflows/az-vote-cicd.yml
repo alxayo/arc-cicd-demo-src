@@ -64,7 +64,8 @@ jobs:
                                                            -u $AZ_ACR_NAME \
                                                            -r $IMAGE_REPO_NAME/$IMAGE_NAME \
                                                            -t $TASKNAME \
-                                                           -d $DOCKER_FILE
+                                                           -d $DOCKER_FILE \
+                                                           -i $imageTag
     - name: Upload Image Tags
       uses: actions/upload-artifact@v2.2.2
       with:
