@@ -19,6 +19,8 @@ spec:
         image: {{  .Values.imageRepo}}/azure-vote-front:v3
         ports:
         - containerPort: 80
+        imagePullSecrets:
+        - name: ivpckacr
         env:
         - name: REDIS
           value: azure-vote-back
