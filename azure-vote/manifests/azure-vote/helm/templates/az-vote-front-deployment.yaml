@@ -14,13 +14,13 @@ spec:
     spec:
       nodeSelector:
         "beta.kubernetes.io/os": linux
+      imagePullSecrets:
+        - name: ivpckacr
       containers:
       - name: azure-vote-front
         image: {{  .Values.imageRepo}}/azure-vote-front:v3
         ports:
         - containerPort: 80
-        imagePullSecrets:
-        - name: ivpckacr
         env:
         - name: REDIS
           value: azure-vote-back
